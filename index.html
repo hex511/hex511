@@ -1,7 +1,57 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>DSFUT PLAYER PICKER</title>
+</head>
+
 <body>
-<h1>Hello World</h1>
-<p>I'm hosted with GitHub Pages.</p>
+  <h2>DSFUT player picker</h2>
+  Minimum player price: <input type="text" id="min" value="0">
+  Maximum player price: <input type="text" id="max" value="10000000">
+  <br><br>
+  Partner ID: <input type="text" id="Partner_ID" value="">
+  Secret key: <input type="text" id="Secret_key" value="">
+  <br><br><button onclick="myStart()">Start picking</button>
+  <button onclick="myStop()">Stop picking</button>
+  <p id="status"></p>
+  <p id="list"></p>
+
+  <script>
+
+
+
+
+    async function picker() {
+      let id = document.getElementById("Partner_ID").value;
+      let secret = document.getElementById("Secret_key").value;
+      let tt = Date.now();
+      let signature = md5(id + secret + tt);
+      var min = document.getElementById("min").value;
+      var max = document.getElementById("max").value;
+      let url = `https://justcors.com/tl_ab637e4/https://dsfut.net/api/22/ps/38274/${tt}/${signature}/?min_buy=${min}&max_buy=${max}`;
+      let response = await fetch(url);
+
+      let commits = await response.text(); // read response body and parse as JSON
+
+
+      document.querySelector('#list').innerHTML += '<br>' + commits + ' - ' + signature;
+    }
+
+    function myStart() {
+      myInterval = setInterval(picker, 1000);
+      document.querySelector('#status').innerHTML = 'status: picking...';
+    }
+    function myStop() {
+      clearInterval(myInterval);
+      document.querySelector('#status').innerHTML = 'status: stopped!';
+    }
+
+  </script>
+  <script src="https://www.myersdaily.org/joseph/javascript/md5.js"></script>
 </body>
+
 </html>
