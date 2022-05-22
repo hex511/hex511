@@ -32,7 +32,7 @@
       let signature = md5(id + secret + tt);
       var min = document.getElementById("min").value;
       var max = document.getElementById("max").value;
-      let url = `https://dsfut.net/api/22/ps/38274/${tt}/${signature}/?min_buy=${min}&max_buy=${max}`;
+      let url = `https://dsfut.net/api/22/ps/${id}/${tt}/${signature}/?min_buy=${min}&max_buy=${max}`;
 
       document.querySelector('#status').innerHTML = 'status: picking...';
 
