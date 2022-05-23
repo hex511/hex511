@@ -9,7 +9,7 @@
 </head>
 
 <body>
-  <h2>DSFUT player picker beta</h2>
+  <h2>DSFUT player picker</h2>
   Partner ID: <input type="text" id="Partner_ID" value="">
   Secret key: <input type="text" id="Secret_key" value="">
   <br><br>
@@ -42,9 +42,11 @@
 
       if (commits.error == "empty") {
         document.querySelector('#status').innerHTML += " (empty)";
-      } else {
+      } else if (commits.message == "1 player popped"){
         document.querySelector('#list').innerHTML += '<br>' + JSON.stringify(commits);
         alert(JSON.stringify(commits));
+      } else {
+        document.querySelector('#list').innerHTML += '<br>' + JSON.stringify(commits);
       }
     }
 
